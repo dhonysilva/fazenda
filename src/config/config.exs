@@ -18,7 +18,7 @@ config :farmcontrol, FarmcontrolWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Farmcontrol.PubSub,
-  live_view: [signing_salt: "5Z7EBbMb"]
+  live_view: [signing_salt: "lBOzYtKg"]
 
 # Configures the mailer
 #

@@ -17,7 +17,7 @@ config :farmcontrol, Farmcontrol.Repo,
 # you can enable the server option below.
 config :farmcontrol, FarmcontrolWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "7L9Q+DbBR6FBZ2m55RtE/tx/XaCxaO1AJQFwvqv8mz1eDzXjv+eAeKCBTRbJUT4F",
+  secret_key_base: "5hfkYJP4D1j/JLXLRPooH9IdE+bE5i8a/KhhyBBWpuB4aqD2021t783g4ZbXIf0R",
   server: false
 
 # In test we don't send emails.

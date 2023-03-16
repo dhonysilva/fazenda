@@ -4,7 +4,7 @@ import Config
 config :farmcontrol, Farmcontrol.Repo,
   username: "postgres",
   password: "postgres",
-  hostname: "db",
+  hostname: "db", 
   database: "farmcontrol_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
@@ -19,11 +19,12 @@ config :farmcontrol, Farmcontrol.Repo,
 config :farmcontrol, FarmcontrolWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  # http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "JNZDfFLwpRSI4fjjDQYjENja7+8aQ3WGx5MQkHRijfAmPekYl0sTHf+gPGnfH4Tw",
+  secret_key_base: "tUX7BVGPkoW6B7OTyyjyY3E6I1tAgVYfC23HLoFBf+5gQsRSUAzV3nRxxlqmvm74",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}

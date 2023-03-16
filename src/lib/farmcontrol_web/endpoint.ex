@@ -7,7 +7,7 @@ defmodule FarmcontrolWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_farmcontrol_key",
-    signing_salt: "ENIFHyPp",
+    signing_salt: "5173BORi",
     same_site: "Lax"
   ]
 
