@@ -19,6 +19,8 @@ defmodule FarmcontrolWeb.Router do
 
     get "/", PageController, :home
 
+    live "/light", LightLive
+
     resources("/accounts", AccountsController)
   end
 
