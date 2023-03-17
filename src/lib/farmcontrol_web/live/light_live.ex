@@ -8,6 +8,7 @@ defmodule FarmcontrolWeb.LightLive do
 
     def render(assigns) do
         ~H"""
+        <h1 class="text-blue-500 text-5xl font-bold text-center">Hello, Tailwind!</h1>
         <h1>Front Porch Light</h1>
         <div id="light">
             <div class="meter">
@@ -17,6 +18,8 @@ defmodule FarmcontrolWeb.LightLive do
             </div>
 
             <button phx-click="off">Off</button>
+            <button phx-click="up">Up</button>
+            <button phx-click="down">Down</button>
             <button phx-click="on">On</button>
         </div>
         """
