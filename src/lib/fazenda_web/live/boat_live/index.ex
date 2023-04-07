@@ -11,7 +11,7 @@ defmodule FazendaWeb.BoatLive.Index do
         boats: Boats.list_boats()
       )
 
-    {:ok, socket}
+    {:ok, socket, temporary_assigns: [boats: []]}
   end
 
   def render(assigns) do
