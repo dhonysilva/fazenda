@@ -1,6 +1,8 @@
 defmodule FazendaWeb.FlightsLive do
   use FazendaWeb, :live_view
 
+  alias Fazenda.Flights
+
   def mount(_params, _session, socket) do
     socket =
       assign(socket,
@@ -15,7 +17,7 @@ defmodule FazendaWeb.FlightsLive do
     ~H"""
     <h1>Find a Flight</h1>
     <div id="flights">
-      <form>
+      <form phx-submit="search">
         <input
           type="text"
           name="airport"
@@ -55,4 +57,15 @@ defmodule FazendaWeb.FlightsLive do
     </div>
     """
   end
+
+  def handle_event("search", %{"airport" => airport}, socket) do
+    socket =
+      assign(socket,
+        airport: airport,
+        flights: Flights.search_by_airport(airport)
+      )
+
+    {:noreply, socket}
+  end
+
 end
