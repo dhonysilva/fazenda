@@ -30,6 +30,7 @@ defmodule FazendaWeb.FlightsLive do
           autocomplete="off"
           readonly={@loading}
           list="matches"
+          phx-debounce="1000"
         />
 
         <button>
