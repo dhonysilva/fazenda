@@ -25,6 +25,14 @@ defmodule FazendaWeb.Router do
     live "/sales", SalesLive
     live "/flights", FlightsLive
     live "/vehicles", VehiclesLive
+
+    # Boat
+    live "/boats", BoatLive.Index, :index
+    live "/boats/new", BoatLive.Index, :new
+    live "/boats/:id/edit", BoatLive.Index, :edit
+
+    live "/boats/:id", BoatLive.Show, :show
+    live "/boats/:id/show/edit", BoatLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,44 @@
+<.header>
+  Listing Boats
+  <:actions>
+    <.link patch={~p"/boats/new"}>
+      <.button>New Boat</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="boats"
+  rows={@streams.boats}
+  row_click={fn {_id, boat} -> JS.navigate(~p"/boats/#{boat}") end}
+>
+  <:col :let={{_id, boat}} label="Model"><%= boat.model %></:col>
+  <:col :let={{_id, boat}} label="Type"><%= boat.type %></:col>
+  <:col :let={{_id, boat}} label="Price"><%= boat.price %></:col>
+  <:col :let={{_id, boat}} label="Image"><%= boat.image %></:col>
+  <:action :let={{_id, boat}}>
+    <div class="sr-only">
+      <.link navigate={~p"/boats/#{boat}"}>Show</.link>
+    </div>
+    <.link patch={~p"/boats/#{boat}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, boat}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: boat.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="boat-modal" show on_cancel={JS.patch(~p"/boats")}>
+  <.live_component
+    module={FazendaWeb.BoatLive.FormComponent}
+    id={@boat.id || :new}
+    title={@page_title}
+    action={@live_action}
+    boat={@boat}
+    patch={~p"/boats"}
+  />
+</.modal>
