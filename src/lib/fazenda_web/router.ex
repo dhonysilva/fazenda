@@ -21,6 +21,8 @@ defmodule FazendaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/sales", SalesLive
   end
 
   # Other scopes may use custom stacks.
