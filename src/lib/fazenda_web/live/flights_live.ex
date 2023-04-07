@@ -32,8 +32,7 @@ defmodule FazendaWeb.FlightsLive do
 
       <div class="flights">
         <ul>
-          <%= for flight <- @flights do %>
-            <li>
+            <li :for={flight <- @flights}>
               <div class="first-line">
                 <div class="number">
                   Flight #<%= flight.number %>
@@ -51,7 +50,6 @@ defmodule FazendaWeb.FlightsLive do
                 </div>
               </div>
             </li>
-          <% end %>
         </ul>
       </div>
     </div>
