@@ -24,6 +24,7 @@ defmodule FazendaWeb.Router do
 
     live "/sales", SalesLive
     live "/flights", FlightsLive
+    live "/vehicles", VehiclesLive
   end
 
   # Other scopes may use custom stacks.
