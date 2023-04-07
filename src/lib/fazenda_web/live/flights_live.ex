@@ -29,6 +29,7 @@ defmodule FazendaWeb.FlightsLive do
           autofocus
           autocomplete="off"
           readonly={@loading}
+          list="matches"
         />
 
         <button>
@@ -36,9 +37,11 @@ defmodule FazendaWeb.FlightsLive do
         </button>
       </form>
 
-      <div>
-        <%= inspect @matches %>
-      </div>
+      <datalist id="matches">
+        <option :for={{code, name} <- @matches} value={code}>
+          <%= name %>
+        </option>
+      </datalist>
 
       <div :if={@loading} class="loader">Loading...</div>
 
