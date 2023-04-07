@@ -23,6 +23,7 @@ defmodule FazendaWeb.Router do
     get "/", PageController, :home
 
     live "/sales", SalesLive
+    live "/flights", FlightsLive
   end
 
   # Other scopes may use custom stacks.
