@@ -4,44 +4,71 @@ defmodule FazendaWeb.BoatLive.Index do
   alias Fazenda.Boats
   alias Fazenda.Boats.Boat
 
-  @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :boats, Boats.list_boats())}
+    socket =
+      assign(socket,
+        filter: %{type: "", prices: []},
+        boats: Boats.list_boats()
+      )
+
+    {:ok, socket}
   end
 
-  @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  def render(assigns) do
+    ~H"""
+    <h1>Daily Boat Rentals</h1>
+    <div id="boats">
+      <form>
+        <div class="filters">
+          <select name="type">
+            <%= Phoenix.HTML.Form.options_for_select(
+              type_options(),
+              @filter.type
+            ) %>
+          </select>
+          <div class="prices">
+            <%= for price <- ["$", "$$", "$$$"] do %>
+              <input
+                type="checkbox"
+                name="prices[]"
+                value={price}
+                id={price}
+                checked={price in @filter.prices}
+              />
+              <label for={price}><%= price %></label>
+            <% end %>
+            <input type="hidden" name="prices[]" value="" />
+          </div>
+        </div>
+      </form>
+      <div class="boats">
+        <div :for={boat <- @boats} class="boat">
+          <img src={boat.image} />
+          <div class="content">
+            <div class="model">
+              <%= boat.model %>
+            </div>
+            <div class="details">
+              <span class="price">
+                <%= boat.price %>
+              </span>
+              <span class="type">
+                <%= boat.type %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    """
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Boat")
-    |> assign(:boat, Boats.get_boat!(id))
-  end
-
-  defp apply_action(socket, :new, _params) do
-    socket
-    |> assign(:page_title, "New Boat")
-    |> assign(:boat, %Boat{})
-  end
-
-  defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, "Listing Boats")
-    |> assign(:boat, nil)
-  end
-
-  @impl true
-  def handle_info({FazendaWeb.BoatLive.FormComponent, {:saved, boat}}, socket) do
-    {:noreply, stream_insert(socket, :boats, boat)}
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    boat = Boats.get_boat!(id)
-    {:ok, _} = Boats.delete_boat(boat)
-
-    {:noreply, stream_delete(socket, :boats, boat)}
+  defp type_options do
+    [
+      "All Types": "",
+      Fishing: "fishing",
+      Sporting: "sporting",
+      Sailing: "sailing"
+    ]
   end
 end
