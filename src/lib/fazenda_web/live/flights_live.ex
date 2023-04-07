@@ -2,13 +2,15 @@ defmodule FazendaWeb.FlightsLive do
   use FazendaWeb, :live_view
 
   alias Fazenda.Flights
+  alias Fazenda.Airports
 
   def mount(_params, _session, socket) do
     socket =
       assign(socket,
         airport: "",
         flights: [],
-        loading: false
+        loading: false,
+        matches: %{}
       )
 
       {:ok, socket}
@@ -18,7 +20,7 @@ defmodule FazendaWeb.FlightsLive do
     ~H"""
     <h1>Find a Flight</h1>
     <div id="flights">
-      <form phx-submit="search">
+      <form phx-submit="search" phx-change="suggest">
         <input
           type="text"
           name="airport"
@@ -33,6 +35,10 @@ defmodule FazendaWeb.FlightsLive do
           <img src="/images/search.svg" />
         </button>
       </form>
+
+      <div>
+        <%= inspect @matches %>
+      </div>
 
       <div :if={@loading} class="loader">Loading...</div>
 
@@ -60,6 +66,12 @@ defmodule FazendaWeb.FlightsLive do
       </div>
     </div>
     """
+  end
+
+  def handle_event("suggest", %{"airport" => prefix}, socket) do
+    matches = Airports.suggest(prefix)
+
+    {:noreply, assign(socket, matches: matches)}
   end
 
   def handle_event("search", %{"airport" => airport}, socket) do
