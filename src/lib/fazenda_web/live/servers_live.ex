@@ -9,7 +9,6 @@ defmodule FazendaWeb.ServersLive do
     socket =
       assign(socket,
         servers: servers,
-        selected_server: hd(servers),
         coffees: 0
       )
 
@@ -20,6 +19,13 @@ defmodule FazendaWeb.ServersLive do
     server = Servers.get_server!(id)
 
     {:noreply, assign(socket, selected_server: server)}
+  end
+
+  def handle_params(_, _uri, socket) do
+    {:noreply,
+      assign(socket,
+      selected_server: hd(socket.assigns.servers)
+    )}
   end
 
   def render(assigns) do
