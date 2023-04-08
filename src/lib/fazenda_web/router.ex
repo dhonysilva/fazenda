@@ -25,6 +25,7 @@ defmodule FazendaWeb.Router do
     live "/sales", SalesLive
     live "/flights", FlightsLive
     live "/vehicles", VehiclesLive
+    live "/servers", ServersLive
 
     # Boat
     live "/boats", BoatLive.Index, :index
