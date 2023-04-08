@@ -36,7 +36,7 @@ defmodule FazendaWeb.ServersLive do
         <div class="nav">
           <.link
             :for={server <- @servers}
-            href={~p"/servers?#{[id: server]}"}
+            patch={~p"/servers?#{[id: server]}"}
             class={if server == @selected_server, do: "selected"}
           >
             <span class={server.status}></span>
