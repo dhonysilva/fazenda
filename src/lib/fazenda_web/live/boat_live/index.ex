@@ -18,7 +18,19 @@ defmodule FazendaWeb.BoatLive.Index do
     ~H"""
     <h1>Daily Boat Rentals</h1>
     <div id="boats">
-      <form phx-change="filter">
+      <.filter_form filter={@filter} />
+
+      <div class="boats">
+        <.boat :for={boat <- @boats} boat={boat} />
+      </div>
+    </div>
+    """
+  end
+
+  attr :filter, :map, required: true
+  def filter_form(assigns) do
+    ~H"""
+    <form phx-change="filter">
         <div class="filters">
           <select name="type">
             <%= Phoenix.HTML.Form.options_for_select(
@@ -41,25 +53,28 @@ defmodule FazendaWeb.BoatLive.Index do
           </div>
         </div>
       </form>
-      <div class="boats">
-        <div :for={boat <- @boats} class="boat">
-          <img src={boat.image} />
+    """
+  end
+
+  attr :boat, Fazenda.Boats.Boat, required: true
+  def boat(assigns) do
+    ~H"""
+      <div class="boat">
+          <img src={@boat.image} />
           <div class="content">
             <div class="model">
-              <%= boat.model %>
+              <%= @boat.model %>
             </div>
             <div class="details">
               <span class="price">
-                <%= boat.price %>
+                <%= @boat.price %>
               </span>
               <span class="type">
-                <%= boat.type %>
+                <%= @boat.type %>
               </span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
     """
   end
 
