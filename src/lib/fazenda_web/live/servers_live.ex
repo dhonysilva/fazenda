@@ -16,20 +16,26 @@ defmodule FazendaWeb.ServersLive do
     {:ok, socket}
   end
 
+  def handle_params(%{"id" => id}, _uri, socket) do
+    server = Servers.get_server!(id)
+
+    {:noreply, assign(socket, selected_server: server)}
+  end
+
   def render(assigns) do
     ~H"""
     <h1>Servers</h1>
     <div id="servers">
       <div class="sidebar">
         <div class="nav">
-          <a
+          <.link
             :for={server <- @servers}
             href={~p"/servers?#{[id: server]}"}
             class={if server == @selected_server, do: "selected"}
           >
             <span class={server.status}></span>
             <%= server.name %>
-          </a>
+          </.link>
         </div>
         <div class="coffees">
           <button phx-click="drink">
