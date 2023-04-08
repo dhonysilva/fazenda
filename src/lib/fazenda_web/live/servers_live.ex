@@ -18,7 +18,11 @@ defmodule FazendaWeb.ServersLive do
   def handle_params(%{"id" => id}, _uri, socket) do
     server = Servers.get_server!(id)
 
-    {:noreply, assign(socket, selected_server: server)}
+    {:noreply,
+      assign(socket,
+        selected_server: server,
+        page_title: "What's up #{server.name}?"
+      )}
   end
 
   def handle_params(_, _uri, socket) do
